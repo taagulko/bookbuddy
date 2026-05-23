@@ -1,25 +1,20 @@
 const express = require('express');
 const cors = require('cors');
 const booksRoutes = require('./routes/booksRoutes');
-const forumRoutes = require('./routes/forumRoutes');
+const quoteRoutes = require('./routes/quoteRoutes'); 
 
 const app = express();
 const PORT = 5000;
 
-// Middleware
-app.use(cors()); // Дозволяємо запити з фронтенду
-app.use(express.json()); // Дозволяємо серверу розуміти JSON формат
+app.use(cors()); 
+app.use(express.json()); 
 
-// Підключення маршрутів
 app.use('/api/books', booksRoutes);
-app.use('/api/forum', forumRoutes);
-
-// Базовий маршрут
+app.use('/api/quotes', quoteRoutes); 
 app.get('/', (req, res) => {
     res.send('API для BookBuddy працює!');
 });
 
-// Запуск сервера
 app.listen(PORT, () => {
     console.log(`Сервер запущено на порту ${PORT}`);
     console.log(`Для перевірки книг перейдіть: http://localhost:${PORT}/api/books`);

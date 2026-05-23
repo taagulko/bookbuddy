@@ -1,7 +1,5 @@
-/* Підключаємо наші змінні кольорів */
 @import './theme.css';
 
-/* Скидаємо базові налаштування браузерів */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -22,7 +20,6 @@ ul { list-style: none; }
   flex: 1; width: 100%; max-width: 1000px; margin: 0 auto; padding: 20px;
 }
 
-/* --- ЗАГАЛЬНІ КНОПКИ ТА ІНПУТИ --- */
 .details-btn {
     padding: 12px 24px; color: white; border: none; border-radius: 12px;
     cursor: pointer; font-weight: 600; transition: all 0.3s ease;
@@ -38,7 +35,6 @@ ul { list-style: none; }
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 input[type=number] { appearance: textfield; -moz-appearance: textfield; }
 
-/* --- БЛОКИ НОТАТОК --- */
 .details-textarea {
     width: 100%; min-height: 120px; padding: 16px;
     border-radius: 12px; border: 1px solid #e0e0e0;
@@ -48,7 +44,6 @@ input[type=number] { appearance: textfield; -moz-appearance: textfield; }
 }
 .details-textarea:focus { border-color: var(--primary-color); outline: none; }
 
-/* --- ДАШБОРД: ЗАРАЗ ЧИТАЮ --- */
 .dash-section { margin-bottom: 50px; }
 .dash-section-title { font-size: 1.6rem; font-weight: bold; margin-bottom: 20px; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; }
 
@@ -62,7 +57,6 @@ input[type=number] { appearance: textfield; -moz-appearance: textfield; }
 .action-btn { padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: bold; border: 1px solid var(--border-color); background: var(--bg-color); transition: all 0.2s; }
 .action-btn:hover { background: #e0e0e0; }
 
-/* --- ТРЕКЕР ПРОГРЕСУ --- */
 .progress-container { background: var(--bg-color); padding: 20px; border-radius: var(--radius-md); }
 .progress-bar-bg { width: 100%; height: 12px; background: #e0e0e0; border-radius: 10px; margin: 15px 0; overflow: hidden; }
 .progress-bar-fill { height: 100%; background: var(--primary-color); border-radius: 10px; transition: width 0.4s ease; }
@@ -70,7 +64,6 @@ input[type=number] { appearance: textfield; -moz-appearance: textfield; }
 .small-input { width: 80px; padding: 8px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; }
 .session-item { display: flex; justify-content: space-between; background: white; padding: 10px 15px; border-radius: var(--radius-md); margin-bottom: 8px; border: 1px solid var(--border-color); font-size: 0.9rem; }
 
-/* --- КАЛЕНДАР --- */
 .calendar-full { background: var(--card-bg); padding: 30px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
 .calendar-header-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 .cal-nav-btn { background: var(--bg-color); border: 1px solid var(--border-color); padding: 8px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.2s; }
@@ -84,7 +77,6 @@ input[type=number] { appearance: textfield; -moz-appearance: textfield; }
 .cal-day img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0.7; border-radius: 10px; }
 .cal-day span { position: relative; z-index: 2; }
 
-/* --- ДОШКА "ХОЧУ ПРОЧИТАТИ" --- */
 .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
 .board-card { position: relative; background: var(--card-bg); padding: 12px; border-radius: 12px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; transition: transform 0.2s; }
 .board-card:hover { transform: translateY(-5px); }
@@ -92,7 +84,6 @@ input[type=number] { appearance: textfield; -moz-appearance: textfield; }
 .board-title { font-weight: bold; font-size: 0.95rem; text-align: center; color: var(--text-main); }
 .board-remove-btn { position: absolute; top: -10px; right: -10px; background: #dc3545; color: white; width: 28px; height: 28px; border-radius: 50%; font-weight: bold; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); cursor: pointer; }
 
-/* --- МОДАЛЬНЕ ВІКНО --- */
 .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; }
 .modal-content { background: var(--card-bg); padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
 .modal-form-group { margin-bottom: 15px; }

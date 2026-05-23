@@ -3,7 +3,6 @@ const path = require('path');
 
 const booksFilePath = path.join(__dirname, '../data/books.json');
 
-// Отримати всі книги
 const getBooks = (req, res) => {
     try {
         const data = fs.readFileSync(booksFilePath, 'utf8');
@@ -13,7 +12,6 @@ const getBooks = (req, res) => {
     }
 };
 
-// Отримати одну книгу
 const getBookById = (req, res) => {
     try {
         const data = fs.readFileSync(booksFilePath, 'utf8');
@@ -26,7 +24,6 @@ const getBookById = (req, res) => {
     }
 };
 
-// ДОДАТИ НОВУ КНИГУ
 const addBook = (req, res) => {
     try {
         const { title, author, coverImage } = req.body;
@@ -56,7 +53,6 @@ const addBook = (req, res) => {
     }
 };
 
-// Оновити книгу
 const updateBook = (req, res) => {
     try {
         const { status, rating, notes, shelf, totalPages, readPages, readingLog } = req.body; 
@@ -83,8 +79,6 @@ const updateBook = (req, res) => {
         res.status(500).json({ message: 'Помилка оновлення книги' });
     }
 };
-
-// Видалення книги назавжди
 const deleteBook = (req, res) => {
     try {
         const data = fs.readFileSync(booksFilePath, 'utf8');

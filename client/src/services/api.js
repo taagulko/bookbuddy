@@ -16,7 +16,6 @@ const fetchFromAPI = async (endpoint, options = {}) => {
 export const bookAPI = {
     getAllBooks: () => fetchFromAPI('/books'),
     getBookById: (id) => fetchFromAPI(`/books/${id}`),
-    // НОВИЙ МЕТОД ДЛЯ ДОДАВАННЯ КНИГИ
     addBook: (newBook) => fetchFromAPI('/books', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -32,16 +31,11 @@ export const bookAPI = {
     })
 };
 
-export const forumAPI = {
-    getForumData: () => fetchFromAPI('/forum'),
-    addComment: (threadId, text) => fetchFromAPI('/forum/comment', {
+export const quoteAPI = {
+    getAllQuotes: () => fetch('/api/quotes').then(res => res.json()),
+    addQuote: (bookId, text) => fetch('/api/quotes/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ threadId, text })
-    }),
-    addQuestion: (sessionId, question) => fetchFromAPI('/forum/question', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId, question })
-    })
+        body: JSON.stringify({ bookId, text })
+    }).then(res => res.json())
 };

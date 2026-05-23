@@ -8,9 +8,8 @@ const Navbar = () => {
             <div style={linkContainerStyle}>
                 <Link to="/" style={linkStyle}>Головна</Link>
                 <Link to="/library" style={linkStyle}>Бібліотека</Link>
-                <Link to="/forum" style={linkStyle}>Форум</Link>
-                <Link to="/qa" style={linkStyle}>QA-Сесії</Link>
-            </div>
+                <Link to="/quotes">Цитати</Link>
+             </div>
         </nav>
     );
 };
