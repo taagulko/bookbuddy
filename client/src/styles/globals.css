@@ -1,4 +1,5 @@
 @import './theme.css';
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -8,6 +9,12 @@ body {
   color: var(--text-main);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 a { text-decoration: none; color: inherit; }
@@ -30,19 +37,19 @@ ul { list-style: none; }
 
 .details-input {
     padding: 12px; border-radius: 12px; border: 1px solid var(--border-color);
-    background: white; font-family: inherit; font-size: 0.95rem; outline: none; flex: 1; width: 100%;
+    background: var(--bg-color); color: var(--text-main); font-family: inherit; font-size: 0.95rem; outline: none; flex: 1; width: 100%;
 }
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 input[type=number] { appearance: textfield; -moz-appearance: textfield; }
 
 .details-textarea {
     width: 100%; min-height: 120px; padding: 16px;
-    border-radius: 12px; border: 1px solid #e0e0e0;
+    border-radius: 12px; border: 1px solid var(--border-color);
+    color: var(--text-main); background: var(--bg-color);
     font-family: inherit; font-size: 0.95rem; resize: none;
-    margin-bottom: 15px; background: #fcfcfc;
+    margin-bottom: 15px;
     transition: border-color 0.3s;
 }
-.details-textarea:focus { border-color: var(--primary-color); outline: none; }
 
 .dash-section { margin-bottom: 50px; }
 .dash-section-title { font-size: 1.6rem; font-weight: bold; margin-bottom: 20px; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; }
@@ -51,105 +58,152 @@ input[type=number] { appearance: textfield; -moz-appearance: textfield; }
     display: flex; gap: 30px; background: var(--card-bg); padding: 30px;
     border-radius: var(--radius-lg); box-shadow: var(--shadow-md); flex-wrap: wrap;
 }
-.dash-book-cover { width: 180px; height: 270px; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+.dash-book-cover { 
+    width: 180px; 
+    height: 270px; 
+    object-fit: cover; 
+    border-radius: var(--radius-md); 
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.dash-book-cover:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px 3px var(--primary-color);
+    cursor: pointer;
+}
 .dash-book-info { flex: 1; min-width: 300px; display: flex; flex-direction: column; }
 .dash-actions { display: flex; gap: 10px; margin-top: 15px; margin-bottom: 25px; }
-.action-btn { padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: bold; border: 1px solid var(--border-color); background: var(--bg-color); transition: all 0.2s; }
-.action-btn:hover { background: #e0e0e0; }
+
+.action-btn { 
+    padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: bold; 
+    border: 1px solid var(--border-color); 
+    background: var(--bg-color); 
+    color: var(--text-main); 
+    transition: all 0.2s; 
+}
+.action-btn:hover { filter: brightness(0.9); }
 
 .progress-container { background: var(--bg-color); padding: 20px; border-radius: var(--radius-md); }
-.progress-bar-bg { width: 100%; height: 12px; background: #e0e0e0; border-radius: 10px; margin: 15px 0; overflow: hidden; }
+.progress-bar-bg { width: 100%; height: 12px; background: var(--border-color); border-radius: 10px; margin: 15px 0; overflow: hidden; }
 .progress-bar-fill { height: 100%; background: var(--primary-color); border-radius: 10px; transition: width 0.4s ease; }
 .progress-inputs { display: flex; gap: 10px; align-items: center; margin-bottom: 15px; }
-.small-input { width: 80px; padding: 8px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; }
-.session-item { display: flex; justify-content: space-between; background: white; padding: 10px 15px; border-radius: var(--radius-md); margin-bottom: 8px; border: 1px solid var(--border-color); font-size: 0.9rem; }
+
+.small-input { width: 80px; padding: 8px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; background: var(--bg-color); color: var(--text-main); }
+.session-item { display: flex; justify-content: space-between; background: var(--bg-color); color: var(--text-main); padding: 10px 15px; border-radius: var(--radius-md); margin-bottom: 8px; border: 1px solid var(--border-color); font-size: 0.9rem; }
 
 .calendar-full { background: var(--card-bg); padding: 30px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
 .calendar-header-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.cal-nav-btn { background: var(--bg-color); border: 1px solid var(--border-color); padding: 8px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-.cal-nav-btn:hover { background: #e0e0e0; }
+
+.cal-nav-btn { background: var(--bg-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 8px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+.cal-nav-btn:hover { filter: brightness(0.9); }
+
 .cal-month-title { font-size: 1.2rem; font-weight: bold; color: var(--text-main); text-transform: uppercase; }
 
 .calendar-grid-full { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
 .calendar-day-header { text-align: center; font-weight: bold; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px; }
-.cal-day { aspect-ratio: 1; background: #f5f5f5; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #555; position: relative; overflow: hidden; }
+
+.cal-day { aspect-ratio: 1; background: var(--bg-color); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--text-main); position: relative; overflow: hidden; }
 .cal-day.active { background: var(--primary-color); color: white; font-weight: bold; }
 .cal-day img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0.7; border-radius: 10px; }
 .cal-day span { position: relative; z-index: 2; }
 
-.board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
-.board-card { position: relative; background: var(--card-bg); padding: 12px; border-radius: 12px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; transition: transform 0.2s; }
-.board-card:hover { transform: translateY(-5px); }
-.board-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-.board-title { font-weight: bold; font-size: 0.95rem; text-align: center; color: var(--text-main); }
-.board-remove-btn { position: absolute; top: -10px; right: -10px; background: #dc3545; color: white; width: 28px; height: 28px; border-radius: 50%; font-weight: bold; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); cursor: pointer; }
+/* --- СІТКА І КАРТКИ КНИГ (Бібліотека та Головна) --- */
+.board-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    gap: 25px; 
+}
 
+.board-card, .book-card { 
+    position: relative; 
+    background: var(--card-bg); 
+    border-radius: var(--radius-lg); 
+    box-shadow: var(--shadow-sm); 
+    display: flex; 
+    flex-direction: column; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    height: 100%; /* Усі картки однакової висоти */
+    overflow: hidden; /* Обрізає краї картинки по закругленню картки */
+}
+
+.board-card:hover, .book-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 0 20px 2px var(--primary-color); 
+}
+
+.board-img, .book-img { 
+    width: 100%; 
+    height: 280px; 
+    object-fit: cover; 
+}
+
+/* Контейнер з текстом і кнопкою */
+.book-info-container {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Дозволяє блоку розтягуватися */
+    justify-content: space-between; /* Притискає кнопку до низу */
+}
+
+.board-title, .book-title { 
+    font-weight: bold; 
+    font-size: 1.1rem; 
+    text-align: center; 
+    color: var(--text-main); 
+    margin-bottom: 5px;
+    line-height: 1.3;
+}
+
+.book-author {
+    font-size: 0.9rem; 
+    color: var(--text-muted); 
+    text-align: center;
+}
+
+.board-remove-btn { position: absolute; top: 8px; right: 8px; background: #dc3545; color: white; width: 28px; height: 28px; border-radius: 50%; font-weight: bold; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); cursor: pointer; }
+
+/* --- МОДАЛКИ ТА ЦИТАТИ --- */
 .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; }
 .modal-content { background: var(--card-bg); padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
 .modal-form-group { margin-bottom: 15px; }
 .modal-actions { display: flex; justify-content: space-between; margin-top: 25px; }
 
-/* Додай ці стилі в кінець файлу */
+.quotes-container { padding: 20px; max-width: 800px; margin: 0 auto; }
+.quote-form { background: var(--card-bg); padding: 25px; border-radius: var(--radius-lg); margin-bottom: 40px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 15px; }
+.quote-form h3 { margin-top: 0; margin-bottom: 10px; color: var(--text-main); }
+.quote-input { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 16px; font-family: inherit; background-color: var(--bg-color); color: var(--text-main); }
+.quote-input::placeholder { color: var(--text-muted); }
 
-.quotes-container {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
+.quote-submit-btn { padding: 12px; background-color: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: filter 0.3s; }
+.quote-submit-btn:hover { filter: brightness(1.1); }
+
+.quote-card { background: var(--card-bg); padding: 20px; border-radius: var(--radius-md); margin-bottom: 20px; box-shadow: var(--shadow-sm); }
+.quote-card-header { display: flex; gap: 20px; align-items: center; margin-bottom: 15px; }
+.quote-card-header img { width: 80px; border-radius: 5px; box-shadow: var(--shadow-sm); }
+.quote-list { list-style: none; padding: 0; }
+.quote-item { font-family: var(--font-heading); font-size: 1.15rem; font-style: italic; margin-bottom: 12px; border-left: 4px solid var(--primary-color); padding-left: 15px; color: var(--text-main); line-height: 1.6; }
+
+/* --- УНІВЕРСАЛЬНЕ СВІТІННЯ ФОКУСУ --- */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-main);
+  -webkit-box-shadow: 0 0 0px 1000px var(--bg-color) inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
-.quote-form {
-    background: #f9f9f9;
-    padding: 25px;
-    border-radius: 12px;
-    margin-bottom: 40px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+input:focus, 
+textarea:focus,
+.details-input:focus,
+.details-textarea:focus,
+.small-input:focus,
+.quote-input:focus {
+    border-color: var(--primary-color) !important;
+    outline: none;
+    box-shadow: 0 0 8px 1px var(--primary-color) !important;
 }
 
-.quote-form h3 {
-    margin-top: 0;
-    color: var(--text-color);
-}
-
-.quote-form input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 16px;
-}
-
-.quote-form button {
-    padding: 12px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-.quote-form button:hover {
-    filter: brightness(1.1);
-}
-
-.quote-card {
-    background: var(--card-bg);
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.quote-card ul {
-    list-style: none;
-    padding: 0;
-}
-
-.quote-card li {
-    font-style: italic;
-    margin-bottom: 15px;
-    border-left: 4px solid var(--primary-color);
-    padding-left: 15px;
-    color: #444;
+input, textarea, .details-input, .details-textarea, .small-input, .quote-input {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }

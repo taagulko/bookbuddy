@@ -36,8 +36,7 @@ const Library = () => {
                     key = 'Одиночні книги';
                 }
             } else if (groupBy === 'shelf') {
-                // НОВА ЛОГІКА ДЛЯ КАСТОМНИХ ПІДБІРОК
-                key = book.shelf && book.shelf.trim() !== '' ? book.shelf : 'Без підбірки (Не відсортовано)';
+                key = book.shelf && book.shelf.trim() !== '' ? book.shelf : 'Без підбірки';
             }
 
             if (!acc[key]) acc[key] = [];
@@ -46,24 +45,24 @@ const Library = () => {
         }, {});
     }, [books, groupBy]);
 
-    if (loading) return <div style={{ textAlign: 'center', padding: '50px' }}>Завантаження... ⏳</div>;
+    if (loading) return <div className="main-content" style={{ textAlign: 'center', padding: '50px' }}>Завантаження... ⏳</div>;
 
     return (
-        <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div className="main-content">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-                <h1 style={{ color: 'var(--text-main)' }}>Моя бібліотека 📖</h1>
+                <h1>Моя бібліотека 📖</h1>
                 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <strong style={{ color: 'var(--text-muted)' }}>Групувати за:</strong>
                     <select 
                         value={groupBy} 
                         onChange={(e) => setGroupBy(e.target.value)}
-                        style={selectStyle}
+                        className="quote-input"
+                        style={{ padding: '8px 15px', cursor: 'pointer', maxWidth: '200px' }}
                     >
                         <option value="none">Без групування (Всі)</option>
                         <option value="genre">Жанром</option>
                         <option value="series">Серією книг</option>
-                        {/* НОВА ОПЦІЯ У ВИПАДАЮЧОМУ СПИСКУ */}
                         <option value="shelf">Моїми підбірками</option>
                     </select>
                 </div>
@@ -72,12 +71,13 @@ const Library = () => {
             {Object.entries(groupedBooks).map(([groupName, groupList]) => (
                 <div key={groupName} style={{ marginBottom: '50px' }}>
                     {groupBy !== 'none' && (
-                        <h2 style={{ borderBottom: '2px solid var(--primary-color)', paddingBottom: '10px', marginBottom: '20px', color: 'var(--text-main)' }}>
+                        <h2 style={{ borderBottom: '2px solid var(--primary-color)', paddingBottom: '10px', marginBottom: '20px' }}>
                             {groupName} <span style={{ color: 'var(--text-muted)', fontSize: '1rem' }}>({groupList.length})</span>
                         </h2>
                     )}
                     
-                    <div style={gridStyle}>
+                    {/* ОСЬ ТУТ використовуємо клас з CSS замість інлайн-стилів */}
+                    <div className="board-grid">
                         {groupList.map(book => (
                             <BookCard key={book.id} book={book} />
                         ))}
@@ -86,25 +86,6 @@ const Library = () => {
             ))}
         </div>
     );
-};
-
-// Тимчасові інлайн-стилі тільки для сітки (оскільки вони суто структурні)
-const gridStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-    gap: '20px'
-};
-
-const selectStyle = {
-    padding: '8px 15px',
-    borderRadius: 'var(--radius-md)',
-    border: '1px solid var(--border-color)',
-    background: 'white',
-    fontFamily: 'inherit',
-    fontSize: '1rem',
-    cursor: 'pointer',
-    outline: 'none',
-    boxShadow: 'var(--shadow-sm)'
 };
 
 export default Library;
