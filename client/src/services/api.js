@@ -2,7 +2,9 @@ const BASE_URL = 'http://localhost:5000/api';
 
 const fetchFromAPI = async (endpoint, options = {}) => {
     try {
-        const response = await fetch(`${BASE_URL}${endpoint}`, options);
+        const url = endpoint.startsWith('http') ? endpoint : `${BASE_URL}${endpoint}`;
+        const response = await fetch(url, options);
+        
         if (!response.ok) {
             throw new Error(`Помилка: ${response.status}`);
         }
@@ -32,10 +34,12 @@ export const bookAPI = {
 };
 
 export const quoteAPI = {
-    getAllQuotes: () => fetch('/api/quotes').then(res => res.json()),
-    addQuote: (bookId, text) => fetch('/api/quotes/add', {
+    getAllQuotes: () => fetchFromAPI('/quotes'),
+    
+    // Тепер передаємо bookTitle на сервер
+    addQuote: (bookTitle, text, author) => fetchFromAPI('/quotes/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ bookId, text })
-    }).then(res => res.json())
+        body: JSON.stringify({ bookTitle, text, author })
+    })
 };
