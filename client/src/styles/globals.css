@@ -207,3 +207,402 @@ textarea:focus,
 input, textarea, .details-input, .details-textarea, .small-input, .quote-input {
     transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
+
+/* --- СОЦІАЛЬНА СТРІЧКА ЦИТАТ --- */
+
+/* Форма додавання посту */
+.social-quote-form {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 30px;
+    border: 1px solid var(--border-color);
+}
+
+.form-header {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.ghost-input {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    border-radius: 0;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding-left: 0;
+}
+
+.ghost-input:focus {
+    border-bottom: 1px solid var(--primary-color) !important;
+}
+
+.social-textarea {
+    min-height: 80px;
+    border: none;
+    background: var(--bg-color);
+    margin-bottom: 10px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Таби (перемикачі) */
+.quote-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.quote-tab {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.quote-tab:hover {
+    color: var(--text-main);
+}
+
+.quote-tab.active {
+    color: var(--primary-color);
+}
+
+.quote-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 5px 5px 0 0;
+}
+
+/* Картка цитати у стрічці */
+.quote-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.social-quote-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.social-quote-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.quote-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.quote-user-info {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.quote-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--bg-color); /* Фон для згенерованих аватарок */
+    border: 2px solid var(--border-color);
+}
+
+.quote-username {
+    font-weight: bold;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+.quote-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.quote-book-tag {
+    background: var(--bg-color);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    border: 1px solid var(--border-color);
+}
+
+.quote-body {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--text-main);
+    line-height: 1.6;
+    padding-left: 57px; /* Вирівнюємо текст по рівню імені, обходячи аватарку */
+}
+
+@media (max-width: 600px) {
+    .quote-body {
+        padding-left: 0;
+        margin-top: 15px;
+    }
+}
+
+/* --- СТОРІНКА ПРИВІТАННЯ (WELCOME SCREEN) --- */
+
+.welcome-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-color);
+    position: relative;
+    overflow: hidden;
+    margin-left: -20px; /* Компенсуємо падінги, якщо вони є на рівні App */
+    margin-top: -20px;
+}
+
+.welcome-content {
+    text-align: center;
+    z-index: 10;
+    max-width: 600px;
+    padding: 40px;
+    animation: fadeIn 1.5s ease-out forwards;
+}
+
+.welcome-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.welcome-title {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: var(--text-main);
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.welcome-text {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    line-height: 1.8;
+}
+
+.welcome-btn {
+    display: inline-block;
+    padding: 18px 40px;
+    background: var(--primary-color);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    /* Ефект пульсації */
+    animation: pulse 2.5s infinite;
+}
+
+.welcome-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px var(--primary-color);
+    animation: none; /* Вимикаємо пульсацію при наведенні */
+    color: white;
+}
+
+/* --- МАГІЧНИЙ ФОН --- */
+.glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15; /* Дуже легке світіння, щоб не відвертати увагу */
+    z-index: 1;
+    animation: float 10s infinite ease-in-out alternate;
+}
+
+.orb-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--primary-color);
+    top: -100px;
+    left: -100px;
+}
+
+.orb-2 {
+    width: 500px;
+    height: 500px;
+    background: var(--primary-color);
+    bottom: -150px;
+    right: -100px;
+    animation-delay: -5s;
+}
+
+/* Анімації */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(140, 106, 79, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(140, 106, 79, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(140, 106, 79, 0); }
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, 40px) scale(1.1); }
+}
+
+/* Для мобільних */
+@media (max-width: 600px) {
+    .welcome-title { font-size: 2.8rem; }
+    .welcome-text { font-size: 1rem; }
+}
+
+.heatmap-container { 
+    margin: 30px 0; 
+    padding: 25px; 
+    background: var(--card-bg); 
+    border-radius: 12px; 
+    box-shadow: var(--shadow-sm);
+}
+
+.heatmap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.streak-badge {
+    background: #ff9f43;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.heatmap-legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+}
+
+.legend-colors {
+    display: flex;
+    gap: 4px;
+}
+
+.legend-colors div {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+/* Кольори (залишаємо сепію, але робимо їх чіткими) */
+.react-calendar-heatmap .color-empty { fill: #f0ede8; }
+.react-calendar-heatmap .color-scale-1 { fill: #d4c4b2; } 
+.react-calendar-heatmap .color-scale-2 { fill: #bfa58d; } 
+.react-calendar-heatmap .color-scale-3 { fill: #9e7e61; } 
+.react-calendar-heatmap .color-scale-4 { fill: #7a5a41; }
+
+/* Ширина смуги */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Фон (трек), по якому рухається повзунок */
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+/* Сам повзунок */
+::-webkit-scrollbar-thumb {
+    background: var(--border-color); /* Колір бордюру з твого сайту */
+    border-radius: 4px;
+}
+
+/* Ефект при наведенні на повзунок */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color); /* Твій основний колір */
+}
+
+/* Для Firefox (стандарт) */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) var(--bg-color);
+}
+
+/* Стилизація всіх селектів на сайті */
+select {
+    appearance: none; /* Прибирає стандартну системну стрілку */
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 10px 35px 10px 15px; /* Залишаємо місце справа для стрілки */
+    border-radius: 8px;
+    color: var(--text-main);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
+    
+    /* Малюємо свою стрілку */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23888%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+select:hover {
+    border-color: var(--primary-color);
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-color)33;
+}

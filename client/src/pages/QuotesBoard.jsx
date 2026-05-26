@@ -1,86 +1,174 @@
 import React, { useState, useEffect } from 'react';
-import { bookAPI, quoteAPI } from '../services/api';
+import { quoteAPI, bookAPI } from '../services/api';
 
 const QuotesBoard = () => {
-    const [booksWithQuotes, setBooksWithQuotes] = useState([]);
-    
-    // Змінили bookId на bookTitle
-    const [formData, setFormData] = useState({ bookTitle: '', text: '', author: '' });
+    const [quotes, setQuotes] = useState([]);
+    const [books, setBooks] = useState([]); // Стейт для списку книг у випадаючому меню
+    const [activeTab, setActiveTab] = useState('community');
+    const [newQuote, setNewQuote] = useState({ bookTitle: '', text: '' });
+    const [loading, setLoading] = useState(true);
+
+    const CURRENT_USER = 'baryromms';
+
+    // Функція завантаження книг та цитат із бази даних
+    const loadData = async () => {
+        try {
+            setLoading(true);
+
+            // 1. Завантажуємо книги для випадаючого списку
+            const booksData = await bookAPI.getAllBooks();
+            setBooks(booksData || []);
+
+            // 2. Завантажуємо дані з ендпоінту цитат
+            const quotesData = await quoteAPI.getAllQuotes();
+            
+            let extractedQuotes = [];
+            if (Array.isArray(quotesData)) {
+                // Перевіряємо, чи сервер повернув масив книг із вкладеними цитатами
+                const isBooksArray = quotesData.some(item => item.quotes && Array.isArray(item.quotes));
+                
+                if (isBooksArray) {
+                    // Якщо прийшли книги — дістаємо цитати з кожної книги з файлу books.json
+                    quotesData.forEach(book => {
+                        if (book.quotes && Array.isArray(book.quotes)) {
+                            book.quotes.forEach(q => {
+                                extractedQuotes.push({
+                                    id: q.id,
+                                    text: q.text,
+                                    author: q.author, // Автор цитати (хто додав)
+                                    date: q.date,
+                                    bookTitle: book.title
+                                });
+                            });
+                        }
+                    });
+                } else {
+                    // Якщо сервер раптом сам віддав уже готовий плоский масив цитат
+                    extractedQuotes = quotesData;
+                }
+            }
+            
+            // Свіжі цитати показуємо зверху
+            setQuotes(extractedQuotes.reverse());
+        } catch (error) {
+            console.error("Помилка при отриманні даних із бази:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        loadQuotes();
+        loadData();
     }, []);
 
-    const loadQuotes = async () => {
+    // Надсилаємо нову цитату на сервер
+    const handleAddQuote = async (e) => {
+        e.preventDefault();
+        if (!newQuote.bookTitle || !newQuote.text) return;
+        
         try {
-            const allBooks = await bookAPI.getAllBooks();
-            const filtered = allBooks.filter(b => b.quotes && b.quotes.length > 0);
-            setBooksWithQuotes(filtered);
+            // Відправляємо точну назву книги, текст та поточного юзера
+            await quoteAPI.addQuote(newQuote.bookTitle, newQuote.text, CURRENT_USER);
+            
+            setNewQuote({ bookTitle: '', text: '' });
+            setActiveTab('mine'); // Перемикаємо на власні збереження
+            await loadData(); // Перезавантажуємо сторінку зі свіжими даними з файлу
+            
         } catch (error) {
-            console.error("Помилка при завантаженні цитат:", error);
+            console.error("Помилка під час запису цитати в базу:", error);
+            alert("Не вдалося зберегти цитату в базу даних. Перевір консоль сервера.");
         }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await quoteAPI.addQuote(formData.bookTitle, formData.text, formData.author);
-            // Очищення форми після успішного додавання
-            setFormData({ bookTitle: '', text: '', author: '' }); 
-            loadQuotes(); 
-        } catch (error) {
-            alert("Помилка при додаванні цитати. Перевірте правильність назви книги!");
-        }
-    };
+    const filteredQuotes = activeTab === 'mine' 
+        ? quotes.filter(q => q.author === CURRENT_USER) 
+        : quotes;
 
     return (
-        <div className="main-content quotes-container">
-            <h1>Цитати спільноти</h1>
+        <div className="main-content">
+            <div style={{ display: 'flex', justifyContent: 'space-between', margin: '20px 0 30px' }}>
+                <h1 style={{ color: 'var(--text-main)' }}>Цитати спільноти ✍️</h1>
+            </div>
 
-            <form className="quote-form" onSubmit={handleSubmit}>
-                <h3>Додати нову цитату</h3>
-                
-                <input 
-                    className="quote-input"
-                    placeholder="Назва книги" 
-                    value={formData.bookTitle} 
-                    onChange={e => setFormData({...formData, bookTitle: e.target.value})} 
-                    required 
+            {/* Форма створення посту */}
+            <form className="social-quote-form" onSubmit={handleAddQuote}>
+                <div className="form-header">
+                    <img 
+                        src={`https://api.dicebear.com/7.x/notionists/svg?seed=${CURRENT_USER}&backgroundColor=e2dcd0`} 
+                        alt="My Avatar" 
+                        className="quote-avatar" 
+                    />
+                    {/* ТЕПЕР ТУТ СЕЛЕКТ: Назва книги обирається з бази, тому помилки бути не може */}
+                    <select 
+                        className="quote-input ghost-input"
+                        value={newQuote.bookTitle}
+                        onChange={(e) => setNewQuote({ ...newQuote, bookTitle: e.target.value })}
+                        style={{ cursor: 'pointer', id: 'book-select' }}
+                    >
+                        <option value="">Оберіть книгу з вашої бібліотеки...</option>
+                        {books.map(book => (
+                            <option key={book.id} value={book.title}>{book.title}</option>
+                        ))}
+                    </select>
+                </div>
+                <textarea 
+                    placeholder="Поділіться улюбленою цитатою з іншими..." 
+                    className="details-textarea social-textarea"
+                    value={newQuote.text}
+                    onChange={(e) => setNewQuote({ ...newQuote, text: e.target.value })}
                 />
-                <input 
-                    className="quote-input"
-                    placeholder="Текст цитати" 
-                    value={formData.text} 
-                    onChange={e => setFormData({...formData, text: e.target.value})} 
-                    required 
-                />
-                <input 
-                    className="quote-input"
-                    placeholder="Ваше ім'я" 
-                    value={formData.author} 
-                    onChange={e => setFormData({...formData, author: e.target.value})} 
-                />
-                <button type="submit" className="quote-submit-btn">
-                    Додати цитату
-                </button>
+                <div className="form-actions">
+                    <button type="submit" className="details-btn">Опублікувати</button>
+                </div>
             </form>
 
-            <div className="quotes-grid">
-                {booksWithQuotes.map(book => (
-                    <div key={book.id} className="quote-card">
-                        <div className="quote-card-header">
-                            <img src={book.coverImage} alt={book.title} />
-                            <h2>{book.title}</h2>
+            {/* Вкладки навігації */}
+            <div className="quote-tabs">
+                <button 
+                    className={`quote-tab ${activeTab === 'community' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('community')}
+                >
+                    Стрічка спільноти
+                </button>
+                <button 
+                    className={`quote-tab ${activeTab === 'mine' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('mine')}
+                >
+                    Мої збереження
+                </button>
+            </div>
+
+            {/* Виведення цитат із бази */}
+            <div className="quote-feed">
+                {loading ? (
+                    <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>Оновлення стрічки... ⏳</div>
+                ) : filteredQuotes.length > 0 ? (
+                    filteredQuotes.map((quote, index) => (
+                        <div key={quote.id || index} className="social-quote-card">
+                            <div className="quote-header">
+                                <div className="quote-user-info">
+                                    <img 
+                                        src={`https://api.dicebear.com/7.x/notionists/svg?seed=${quote.author || 'User'}&backgroundColor=e2dcd0`} 
+                                        alt={quote.author} 
+                                        className="quote-avatar" 
+                                    />
+                                    <div>
+                                        <div className="quote-username">{quote.author || 'Користувач'}</div>
+                                        <div className="quote-date">Нещодавно</div>
+                                    </div>
+                                </div>
+                                <div className="quote-book-tag">📖 {quote.bookTitle || 'Книга'}</div>
+                            </div>
+                            <div className="quote-body">
+                                "{quote.text}"
+                            </div>
                         </div>
-                        <ul className="quote-list">
-                            {book.quotes.map((q, index) => (
-                                <li key={index} className="quote-item">
-                                    "{q.text}" — <strong>{q.author}</strong>
-                                </li>
-                            ))}
-                        </ul>
+                    ))
+                ) : (
+                    <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
+                        Тут поки порожньо. Оберіть книгу та додайте першу цитату!
                     </div>
-                ))}
+                )}
             </div>
         </div>
     );

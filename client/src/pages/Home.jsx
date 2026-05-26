@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { bookAPI } from '../services/api';
 import { Link } from 'react-router-dom';
+import ReadingHeatmap from '../components/ReadingHeatmap/ReadingHeatmap'; // НОВИЙ ІМПОРТ
 
 const Home = () => {
     const [books, setBooks] = useState([]);
@@ -15,8 +16,7 @@ const Home = () => {
     const [isReadModalOpen, setIsReadModalOpen] = useState(false);
     const [selectedReadBookId, setSelectedReadBookId] = useState('');
 
-    // --- НОВИЙ СТЕЙТ ДЛЯ НАВІГАЦІЇ ПО КАЛЕНДАРЮ ---
-    const [currentDate, setCurrentDate] = useState(new Date()); // За замовчуванням сьогодні
+    const [currentDate, setCurrentDate] = useState(new Date());
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -104,13 +104,11 @@ const Home = () => {
         }
     };
 
-    // --- ЛОГІКА ДЛЯ ДИНАМІЧНОГО КАЛЕНДАРЯ ТА ОБКЛАДИНОК ---
     const logMap = React.useMemo(() => {
         const map = {};
         books.forEach(b => {
             if (b.readingLog) {
                 b.readingLog.forEach(log => {
-                    // Зберігаємо обкладинку першої книги, яку читали в цей день
                     if (!map[log.date]) {
                         map[log.date] = b.coverImage; 
                     }
@@ -127,7 +125,6 @@ const Home = () => {
     const month = currentDate.getMonth();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     
-    // Визначаємо день тижня для 1-го числа (коригуємо для понеділка = 0)
     let firstDayIndex = new Date(year, month, 1).getDay() - 1;
     if (firstDayIndex === -1) firstDayIndex = 6; 
 
@@ -203,7 +200,9 @@ const Home = () => {
                 )}
             </section>
 
-            {/* БЛОК 2: ДИНАМІЧНИЙ КАЛЕНДАР */}
+            {/* ВСТАВКА ТЕПЛОВОЇ КАРТИ */}
+            <ReadingHeatmap books={books} />
+
             <section className="dash-section">
                 <div className="calendar-full">
                     <div className="calendar-header-actions">
@@ -218,18 +217,15 @@ const Home = () => {
                         <div className="calendar-day-header">ПТ</div><div className="calendar-day-header">СБ</div>
                         <div className="calendar-day-header">НД</div>
                         
-                        {/* Порожні клітинки до 1-го числа місяця */}
                         {[...Array(firstDayIndex)].map((_, i) => <div key={`empty-${i}`}></div>)}
                         
-                        {/* Дні місяця */}
                         {[...Array(daysInMonth)].map((_, i) => {
                             const day = i + 1;
                             const dateStr = `${String(day).padStart(2, '0')}.${String(month + 1).padStart(2, '0')}.${year}`;
-                            const coverImage = logMap[dateStr]; // Перевіряємо, чи є картинка на цю дату
+                            const coverImage = logMap[dateStr]; 
 
                             return (
                                 <div key={day} className={`cal-day ${coverImage ? 'active' : ''}`}>
-                                    {/* Якщо читали - виводимо картинку */}
                                     {coverImage && <img src={coverImage} alt="cover" />}
                                     <span>{day}</span>
                                 </div>
@@ -262,7 +258,6 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Модалки (код не змінився) */}
             {isPlanModalOpen && (
                 <div className="modal-overlay">
                     <div className="modal-content">

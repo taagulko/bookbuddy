@@ -6,7 +6,7 @@ const Navbar = ({ theme, toggleTheme }) => {
         <nav style={navStyle}>
             <div style={logoStyle}>BookBuddy</div>
             <div style={linkContainerStyle}>
-                <Link to="/" style={linkStyle}>Головна</Link>
+                <Link to="/home" style={linkStyle}>Головна</Link>
                 <Link to="/library" style={linkStyle}>Бібліотека</Link>
                 <Link to="/quotes" style={linkStyle}>Цитати</Link>
                 
