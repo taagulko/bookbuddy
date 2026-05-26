@@ -7,7 +7,6 @@ const BookDetails = () => {
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true);
     
-    // Стейти для кастомних даних
     const [noteInput, setNoteInput] = useState('');
     const [shelfInput, setShelfInput] = useState(''); 
     const [isSaved, setIsSaved] = useState(false);
@@ -102,7 +101,6 @@ const BookDetails = () => {
                         </div>
                     </div>
 
-                    {/* БЛОК "Про книгу" (ПЕРЕНЕСЕНО ВГОРУ) */}
                     {book.description && (
                         <div style={{ marginBottom: '20px' }}>
                             <h3 style={{ fontSize: '1.2rem', marginBottom: '10px', color: 'var(--primary-color)' }}>Про книгу:</h3>
@@ -112,13 +110,9 @@ const BookDetails = () => {
                         </div>
                     )}
 
-                    {/* (БЛОК Відслідковування прогресу ПОВНІСТЮ ВИДАЛЕНО) */}
-
-                    {/* БЛОК "Мої дані" (preserved below description) */}
                     <div style={{ background: 'var(--bg-color)', padding: '20px', borderRadius: 'var(--radius-md)', marginTop: 'auto' }}>
                         <h3 style={{ fontSize: '1.1rem', marginBottom: '15px', color: 'var(--text-main)' }}>Мої дані:</h3>
                         
-                        {/* Кастомна група */}
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '15px' }}>
                             <strong style={{ fontSize: '1.05rem', color: 'var(--text-main)' }}>Моя підбірка:</strong>
                             <input 
@@ -130,7 +124,6 @@ const BookDetails = () => {
                             />
                         </div>
 
-                        {/* Нотатки */}
                         <textarea 
                             value={noteInput}
                             onChange={(e) => setNoteInput(e.target.value)}

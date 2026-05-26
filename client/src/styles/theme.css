@@ -1,50 +1,41 @@
-/* --- ОСНОВНА (СВІТЛА) ТЕМА --- */
-/* Естетика: Старий папір, кава, темне дерево */
 :root {
-  --bg-color: #F6F3EB;       /* Колір старого пергаменту */
-  --card-bg: #FFFFFF;        /* Чистий білий для карток, щоб був контраст */
-  --text-main: #2C241B;      /* Колір темного шоколаду/чорнила (замість нудного чорного) */
-  --text-muted: #827365;     /* Пильний коричневий для другорядного тексту */
-  --primary-color: #8C6A4F;  /* Колір карамелі/шкіряної обкладинки */
-  --border-color: #E2DCD0;   /* М'яка межа */
+  --bg-color: #F6F3EB;
+  --card-bg: #FFFFFF;
+  --text-main: #2C241B;
+  --text-muted: #827365;
+  --primary-color: #8C6A4F;
+  --border-color: #E2DCD0;
   
-  /* Дорогі тіні */
   --shadow-sm: 0 4px 12px rgba(44, 36, 27, 0.05);
   --shadow-md: 0 10px 24px rgba(44, 36, 27, 0.08);
   
-  /* Заокруглення (трохи менші, щоб виглядало серйозніше) */
   --radius-md: 10px;
   --radius-lg: 14px;
   
-  /* Твої шрифти */
-  --font-main: 'Inter', system-ui, sans-serif; /* Для звичайного тексту */
-  --font-heading: 'Playfair Display', serif;   /* НОВЕ: Для заголовків і цитат */
+  --font-main: 'Inter', system-ui, sans-serif;
+  --font-heading: 'Playfair Display', serif;
   
   --transition-speed: 0.3s;
 }
 
-/* --- ТЕМНА ТЕМА --- */
-/* Естетика: Нічна бібліотека, глибокий графіт, золоті акценти */
 [data-theme='dark'] {
-  --bg-color: #161618;       /* Дуже темний сірий, майже чорний, але м'якший для очей */
-  --card-bg: #222224;        /* Трохи світліший для карток */
-  --text-main: #EAE6DF;      /* Колір слонової кістки для тексту */
-  --text-muted: #9B968C;     /* Приглушений сіро-бежевий */
-  --primary-color: #D4AF37;  /* Приглушене старе золото */
+  --bg-color: #161618;
+  --card-bg: #222224;
+  --text-main: #EAE6DF;
+  --text-muted: #9B968C;
+  --primary-color: #D4AF37;
   --border-color: #38383A;
   
   --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 10px 24px rgba(0, 0, 0, 0.5);
 }
 
-/* --- БАЗОВІ СТИЛІ --- */
 body {
   background-color: var(--bg-color);
   color: var(--text-main);
   transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
-/* Щоб картки теж плавно міняли колір при перемиканні */
 .quote-card, .modal-content, .board-card {
   transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
 }

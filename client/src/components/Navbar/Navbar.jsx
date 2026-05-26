@@ -10,7 +10,6 @@ const Navbar = ({ theme, toggleTheme }) => {
                 <Link to="/library" style={linkStyle}>Бібліотека</Link>
                 <Link to="/quotes" style={linkStyle}>Цитати</Link>
                 
-                {/* Кнопка перемикання теми */}
                 <button onClick={toggleTheme} style={themeBtnStyle}>
                     {theme === 'light' ? '🌙 Ніч' : '☀️ День'}
                 </button>
@@ -40,7 +39,7 @@ const logoStyle = {
 const linkContainerStyle = { 
     display: 'flex', 
     gap: '20px',
-    alignItems: 'center' // Додано, щоб текст і кнопка стояли рівно по центру
+    alignItems: 'center' 
 };
 
 const linkStyle = {
@@ -63,7 +62,7 @@ const themeBtnStyle = {
     alignItems: 'center',
     boxShadow: 'var(--shadow-sm)',
     transition: 'all 0.3s ease',
-    marginLeft: '15px' // Невеликий відступ від текстових посилань
+    marginLeft: '15px'
 };
 
 export default Navbar;

@@ -36,7 +36,6 @@ export const bookAPI = {
 export const quoteAPI = {
     getAllQuotes: () => fetchFromAPI('/quotes'),
     
-    // Тепер передаємо bookTitle на сервер
     addQuote: (bookTitle, text, author) => fetchFromAPI('/quotes/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

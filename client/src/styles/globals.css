@@ -107,7 +107,6 @@ input[type=number] { appearance: textfield; -moz-appearance: textfield; }
 .cal-day img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0.7; border-radius: 10px; }
 .cal-day span { position: relative; z-index: 2; }
 
-/* --- СІТКА І КАРТКИ КНИГ (Бібліотека та Головна) --- */
 .board-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
@@ -122,8 +121,8 @@ input[type=number] { appearance: textfield; -moz-appearance: textfield; }
     display: flex; 
     flex-direction: column; 
     transition: transform 0.3s ease, box-shadow 0.3s ease; 
-    height: 100%; /* Усі картки однакової висоти */
-    overflow: hidden; /* Обрізає краї картинки по закругленню картки */
+    height: 100%; 
+    overflow: hidden; 
 }
 
 .board-card:hover, .book-card:hover { 
@@ -137,13 +136,12 @@ input[type=number] { appearance: textfield; -moz-appearance: textfield; }
     object-fit: cover; 
 }
 
-/* Контейнер з текстом і кнопкою */
 .book-info-container {
     padding: 15px;
     display: flex;
     flex-direction: column;
-    flex: 1; /* Дозволяє блоку розтягуватися */
-    justify-content: space-between; /* Притискає кнопку до низу */
+    flex: 1;
+    justify-content: space-between;
 }
 
 .board-title, .book-title { 
@@ -163,7 +161,6 @@ input[type=number] { appearance: textfield; -moz-appearance: textfield; }
 
 .board-remove-btn { position: absolute; top: 8px; right: 8px; background: #dc3545; color: white; width: 28px; height: 28px; border-radius: 50%; font-weight: bold; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); cursor: pointer; }
 
-/* --- МОДАЛКИ ТА ЦИТАТИ --- */
 .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; }
 .modal-content { background: var(--card-bg); padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
 .modal-form-group { margin-bottom: 15px; }
@@ -184,7 +181,6 @@ input[type=number] { appearance: textfield; -moz-appearance: textfield; }
 .quote-list { list-style: none; padding: 0; }
 .quote-item { font-family: var(--font-heading); font-size: 1.15rem; font-style: italic; margin-bottom: 12px; border-left: 4px solid var(--primary-color); padding-left: 15px; color: var(--text-main); line-height: 1.6; }
 
-/* --- УНІВЕРСАЛЬНЕ СВІТІННЯ ФОКУСУ --- */
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus {
@@ -208,9 +204,6 @@ input, textarea, .details-input, .details-textarea, .small-input, .quote-input {
     transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
-/* --- СОЦІАЛЬНА СТРІЧКА ЦИТАТ --- */
-
-/* Форма додавання посту */
 .social-quote-form {
     background: var(--card-bg);
     border-radius: var(--radius-lg);
@@ -254,7 +247,6 @@ input, textarea, .details-input, .details-textarea, .small-input, .quote-input {
     justify-content: flex-end;
 }
 
-/* Таби (перемикачі) */
 .quote-tabs {
     display: flex;
     gap: 15px;
@@ -294,7 +286,6 @@ input, textarea, .details-input, .details-textarea, .small-input, .quote-input {
     border-radius: 5px 5px 0 0;
 }
 
-/* Картка цитати у стрічці */
 .quote-feed {
     display: flex;
     flex-direction: column;
@@ -335,7 +326,7 @@ input, textarea, .details-input, .details-textarea, .small-input, .quote-input {
     height: 45px;
     border-radius: 50%;
     object-fit: cover;
-    background: var(--bg-color); /* Фон для згенерованих аватарок */
+    background: var(--bg-color); 
     border: 2px solid var(--border-color);
 }
 
@@ -366,7 +357,7 @@ input, textarea, .details-input, .details-textarea, .small-input, .quote-input {
     font-style: italic;
     color: var(--text-main);
     line-height: 1.6;
-    padding-left: 57px; /* Вирівнюємо текст по рівню імені, обходячи аватарку */
+    padding-left: 57px; 
 }
 
 @media (max-width: 600px) {
@@ -376,7 +367,6 @@ input, textarea, .details-input, .details-textarea, .small-input, .quote-input {
     }
 }
 
-/* --- СТОРІНКА ПРИВІТАННЯ (WELCOME SCREEN) --- */
 
 .welcome-container {
     height: 100vh;
@@ -387,7 +377,7 @@ input, textarea, .details-input, .details-textarea, .small-input, .quote-input {
     background-color: var(--bg-color);
     position: relative;
     overflow: hidden;
-    margin-left: -20px; /* Компенсуємо падінги, якщо вони є на рівні App */
+    margin-left: -20px; 
     margin-top: -20px;
 }
 
@@ -445,16 +435,15 @@ input, textarea, .details-input, .details-textarea, .small-input, .quote-input {
 .welcome-btn:hover {
     transform: translateY(-3px) scale(1.05);
     box-shadow: 0 8px 25px var(--primary-color);
-    animation: none; /* Вимикаємо пульсацію при наведенні */
+    animation: none; 
     color: white;
 }
 
-/* --- МАГІЧНИЙ ФОН --- */
 .glow-orb {
     position: absolute;
     border-radius: 50%;
     filter: blur(80px);
-    opacity: 0.15; /* Дуже легке світіння, щоб не відвертати увагу */
+    opacity: 0.15; 
     z-index: 1;
     animation: float 10s infinite ease-in-out alternate;
 }
@@ -476,7 +465,6 @@ input, textarea, .details-input, .details-textarea, .small-input, .quote-input {
     animation-delay: -5s;
 }
 
-/* Анімації */
 @keyframes fadeIn {
     0% { opacity: 0; transform: translateY(20px); }
     100% { opacity: 1; transform: translateY(0); }
@@ -493,7 +481,6 @@ input, textarea, .details-input, .details-textarea, .small-input, .quote-input {
     100% { transform: translate(30px, 40px) scale(1.1); }
 }
 
-/* Для мобільних */
 @media (max-width: 600px) {
     .welcome-title { font-size: 2.8rem; }
     .welcome-text { font-size: 1rem; }
@@ -544,53 +531,45 @@ input, textarea, .details-input, .details-textarea, .small-input, .quote-input {
     border-radius: 2px;
 }
 
-/* Кольори (залишаємо сепію, але робимо їх чіткими) */
 .react-calendar-heatmap .color-empty { fill: #f0ede8; }
 .react-calendar-heatmap .color-scale-1 { fill: #d4c4b2; } 
 .react-calendar-heatmap .color-scale-2 { fill: #bfa58d; } 
 .react-calendar-heatmap .color-scale-3 { fill: #9e7e61; } 
 .react-calendar-heatmap .color-scale-4 { fill: #7a5a41; }
 
-/* Ширина смуги */
 ::-webkit-scrollbar {
     width: 8px;
 }
 
-/* Фон (трек), по якому рухається повзунок */
 ::-webkit-scrollbar-track {
     background: var(--bg-color);
 }
 
-/* Сам повзунок */
 ::-webkit-scrollbar-thumb {
-    background: var(--border-color); /* Колір бордюру з твого сайту */
+    background: var(--border-color);
     border-radius: 4px;
 }
 
-/* Ефект при наведенні на повзунок */
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-color); /* Твій основний колір */
+    background: var(--primary-color); 
 }
 
-/* Для Firefox (стандарт) */
 * {
     scrollbar-width: thin;
     scrollbar-color: var(--border-color) var(--bg-color);
 }
 
-/* Стилизація всіх селектів на сайті */
 select {
-    appearance: none; /* Прибирає стандартну системну стрілку */
+    appearance: none; 
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
-    padding: 10px 35px 10px 15px; /* Залишаємо місце справа для стрілки */
+    padding: 10px 35px 10px 15px; 
     border-radius: 8px;
     color: var(--text-main);
     cursor: pointer;
     font-size: 1rem;
     transition: all 0.3s;
     
-    /* Малюємо свою стрілку */
     background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23888%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
     background-repeat: no-repeat;
     background-position: right 10px center;

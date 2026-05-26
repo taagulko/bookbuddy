@@ -35,7 +35,7 @@ const addBook = (req, res) => {
             title,
             author,
             coverImage,
-            status: '', // Спочатку без статусу
+            status: '',
             rating: 0,
             notes: '',
             shelf: '',
@@ -62,7 +62,6 @@ const updateBook = (req, res) => {
         const bookIndex = books.findIndex(b => String(b.id) === req.params.id);
         if (bookIndex === -1) return res.status(404).json({ message: 'Книгу не знайдено' });
 
-        // Дозволяємо скидання статусу (порожній рядок)
         if (status !== undefined) books[bookIndex].status = status;
         
         if (rating !== undefined) books[bookIndex].rating = Number(rating);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { bookAPI } from '../services/api';
 import { Link } from 'react-router-dom';
-import ReadingHeatmap from '../components/ReadingHeatmap/ReadingHeatmap'; // НОВИЙ ІМПОРТ
+import ReadingHeatmap from '../components/ReadingHeatmap/ReadingHeatmap'; 
 
 const Home = () => {
     const [books, setBooks] = useState([]);
@@ -200,7 +200,6 @@ const Home = () => {
                 )}
             </section>
 
-            {/* ВСТАВКА ТЕПЛОВОЇ КАРТИ */}
             <ReadingHeatmap books={books} />
 
             <section className="dash-section">

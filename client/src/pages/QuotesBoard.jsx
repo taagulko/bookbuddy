@@ -3,39 +3,34 @@ import { quoteAPI, bookAPI } from '../services/api';
 
 const QuotesBoard = () => {
     const [quotes, setQuotes] = useState([]);
-    const [books, setBooks] = useState([]); // Стейт для списку книг у випадаючому меню
+    const [books, setBooks] = useState([]); 
     const [activeTab, setActiveTab] = useState('community');
     const [newQuote, setNewQuote] = useState({ bookTitle: '', text: '' });
     const [loading, setLoading] = useState(true);
 
     const CURRENT_USER = 'baryromms';
 
-    // Функція завантаження книг та цитат із бази даних
     const loadData = async () => {
         try {
             setLoading(true);
 
-            // 1. Завантажуємо книги для випадаючого списку
             const booksData = await bookAPI.getAllBooks();
             setBooks(booksData || []);
 
-            // 2. Завантажуємо дані з ендпоінту цитат
             const quotesData = await quoteAPI.getAllQuotes();
             
             let extractedQuotes = [];
             if (Array.isArray(quotesData)) {
-                // Перевіряємо, чи сервер повернув масив книг із вкладеними цитатами
                 const isBooksArray = quotesData.some(item => item.quotes && Array.isArray(item.quotes));
                 
                 if (isBooksArray) {
-                    // Якщо прийшли книги — дістаємо цитати з кожної книги з файлу books.json
                     quotesData.forEach(book => {
                         if (book.quotes && Array.isArray(book.quotes)) {
                             book.quotes.forEach(q => {
                                 extractedQuotes.push({
                                     id: q.id,
                                     text: q.text,
-                                    author: q.author, // Автор цитати (хто додав)
+                                    author: q.author, 
                                     date: q.date,
                                     bookTitle: book.title
                                 });
@@ -43,12 +38,10 @@ const QuotesBoard = () => {
                         }
                     });
                 } else {
-                    // Якщо сервер раптом сам віддав уже готовий плоский масив цитат
                     extractedQuotes = quotesData;
                 }
             }
             
-            // Свіжі цитати показуємо зверху
             setQuotes(extractedQuotes.reverse());
         } catch (error) {
             console.error("Помилка при отриманні даних із бази:", error);
@@ -61,18 +54,16 @@ const QuotesBoard = () => {
         loadData();
     }, []);
 
-    // Надсилаємо нову цитату на сервер
     const handleAddQuote = async (e) => {
         e.preventDefault();
         if (!newQuote.bookTitle || !newQuote.text) return;
         
         try {
-            // Відправляємо точну назву книги, текст та поточного юзера
             await quoteAPI.addQuote(newQuote.bookTitle, newQuote.text, CURRENT_USER);
             
             setNewQuote({ bookTitle: '', text: '' });
-            setActiveTab('mine'); // Перемикаємо на власні збереження
-            await loadData(); // Перезавантажуємо сторінку зі свіжими даними з файлу
+            setActiveTab('mine');
+            await loadData();
             
         } catch (error) {
             console.error("Помилка під час запису цитати в базу:", error);
@@ -90,7 +81,6 @@ const QuotesBoard = () => {
                 <h1 style={{ color: 'var(--text-main)' }}>Цитати спільноти ✍️</h1>
             </div>
 
-            {/* Форма створення посту */}
             <form className="social-quote-form" onSubmit={handleAddQuote}>
                 <div className="form-header">
                     <img 
@@ -98,7 +88,7 @@ const QuotesBoard = () => {
                         alt="My Avatar" 
                         className="quote-avatar" 
                     />
-                    {/* ТЕПЕР ТУТ СЕЛЕКТ: Назва книги обирається з бази, тому помилки бути не може */}
+                 
                     <select 
                         className="quote-input ghost-input"
                         value={newQuote.bookTitle}
@@ -122,7 +112,6 @@ const QuotesBoard = () => {
                 </div>
             </form>
 
-            {/* Вкладки навігації */}
             <div className="quote-tabs">
                 <button 
                     className={`quote-tab ${activeTab === 'community' ? 'active' : ''}`}
@@ -138,7 +127,6 @@ const QuotesBoard = () => {
                 </button>
             </div>
 
-            {/* Виведення цитат із бази */}
             <div className="quote-feed">
                 {loading ? (
                     <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>Оновлення стрічки... ⏳</div>

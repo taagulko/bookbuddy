@@ -76,7 +76,6 @@ const Library = () => {
                         </h2>
                     )}
                     
-                    {/* ОСЬ ТУТ використовуємо клас з CSS замість інлайн-стилів */}
                     <div className="board-grid">
                         {groupList.map(book => (
                             <BookCard key={book.id} book={book} />

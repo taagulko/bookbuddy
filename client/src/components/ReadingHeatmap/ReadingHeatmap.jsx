@@ -3,7 +3,6 @@ import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 
 const ReadingHeatmap = ({ books }) => {
-  // Формуємо дані
   const { heatmapData, dataMap } = useMemo(() => {
     const map = {};
     books.forEach(book => {
@@ -17,7 +16,6 @@ const ReadingHeatmap = ({ books }) => {
     return { heatmapData: data, dataMap: map };
   }, [books]);
 
-  // Рахуємо страйк (кількість днів поспіль)
   const calculateStreak = () => {
     let streak = 0;
     let d = new Date();

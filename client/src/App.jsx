@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import './styles/globals.css';
-import './styles/theme.css'; // Переконайся, що імпортуєш тему!
+import './styles/theme.css'; 
 
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';

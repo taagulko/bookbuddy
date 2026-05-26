@@ -16,7 +16,6 @@ const getQuotesData = (req, res) => {
 
 const addQuote = (req, res) => {
     try {
-        // Тепер приймаємо bookTitle замість bookId
         const { bookTitle, text, author } = req.body;
         
         if (!bookTitle || !text) {
@@ -26,7 +25,6 @@ const addQuote = (req, res) => {
         const data = fs.readFileSync(booksFilePath, 'utf8');
         const books = JSON.parse(data);
 
-        // Шукаємо книгу за частиною назви, ігноруючи великі/малі літери
         const bookIndex = books.findIndex(b => 
             b.title.toLowerCase().includes(bookTitle.toLowerCase().trim())
         );
